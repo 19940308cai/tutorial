@@ -1,6 +1,6 @@
 import pymysql
 
-db = pymysql.Connect("localhost","root","root","world")
+db = pymysql.Connect("localhost","root","Kuaihe2!","world")
 cursor = db.cursor()
 
 class Mysql:
@@ -8,7 +8,7 @@ class Mysql:
     @classmethod
     def insert(cls,taxnumber,taxname,date,area):
        sql = '''
-       select * from `world`.`countrytax` where `taxnumber`="%s" and `taxname`="%s" and `date`="%s" and `area`="%s"
+       select * from `world`.`countryTax` where `taxnumber`="%s" and `taxname`="%s" and `date`="%s" and `area`="%s"
        '''  % (
            taxnumber,
            taxname,
@@ -20,7 +20,7 @@ class Mysql:
            return False
 
        sql = '''
-        insert into `world`.`countrytax` ( `taxnumber`,`taxname`,`date`,`area`) 
+        insert into `world`.`countryTax` ( `taxnumber`,`taxname`,`date`,`area`) 
         values ( "%s","%s","%s","%s")
        ''' % (
            taxnumber,
@@ -35,4 +35,3 @@ class Mysql:
        except:
            db.rollback()
        return result
-

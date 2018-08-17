@@ -1,5 +1,5 @@
 import scrapy
-import re,datetime
+import datetime,os
 from tutorial.items import CountryTaxItem
 
 
@@ -16,11 +16,18 @@ class CountryTax(scrapy.Spider):
         self.maxPage=maxPage
         self.taxCode=taxCode
 
-
     def start_requests(self):
-        for index in range(1,int(self.maxPage)):
-            yield scrapy.FormRequest(meta={"index":str(index)},url=self.baseUrl+"?time="+str(datetime.datetime.now().timestamp()),callback=self.run)
+       if os.path.exists("./item.txt") :
+            with open("./item.txt","r") as f:
+                offset=f.read()
+       else:
+            offset=1
 
+       for index in range(int(offset),int(self.maxPage)):
+            with open("./item.txt","w") as f:
+                 f.write(str(index))
+            yield scrapy.FormRequest(meta={"index":str(index)},url=self.baseUrl+"?time="+str(datetime.datetime.now().timestamp()),callback=self.run)
+       os.remove("./item.txt")
 
     def run(self,response):
         body = {}
