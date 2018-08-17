@@ -5,7 +5,7 @@
 from tutorial.items import CountryTaxItem
 from tutorial.sql import Mysql
 
-class countrytaxPipeline(object):
+class productPipeline(object):
 
     def process_item(self, item, spider):
         if isinstance(item,CountryTaxItem):
