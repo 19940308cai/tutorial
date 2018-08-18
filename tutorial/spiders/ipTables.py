@@ -10,7 +10,7 @@ class Iptables(scrapy.Spider):
     def start_requests(self):
         while True:
             yield scrapy.Request(url=self.baseUrl+"?z="+str(time.time()), callback=self.run)
-            time.sleep(300)
+
 
 
     def run(self,response):
