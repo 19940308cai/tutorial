@@ -6,7 +6,6 @@ from tutorial.items import CountryTaxItem
 from tutorial.items import IptablesTtem
 from tutorial.model.countryTax import countryTax
 from tutorial.model.iptable import iptable
-from scrapy import log
 
 class productPipeline(object):
 

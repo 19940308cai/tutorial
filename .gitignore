@@ -1,4 +1,5 @@
 .idea
+tutorial/log/*
 tutorial/item.txt
 tutorial/__pycache__/*
 tutorial/spiders/__pycache__/*
