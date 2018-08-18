@@ -17,8 +17,8 @@ class localtest(scrapy.Spider):
             domain = list[rand][1]
             port   = list[rand][3]
             # url = schema + "://" + domain+":"+port
-            url = "http://121.69.70.182:8118"
-            yield scrapy.Request(url=self.baseUrl+"?z="+str(time.time()),meta={"index":index,"proxy":url}, callback=self.run)
+            proxy = "http://121.69.70.182:8118"
+            yield scrapy.Request(url=self.baseUrl+"?z="+str(time.time()),meta={"index":index,"proxy":proxy}, callback=self.run)
 
 
 
