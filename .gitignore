@@ -1,4 +1,5 @@
 .idea
 tutorial/item.txt
 tutorial/__pycache__/*
-tutorial/spiders/__pycache__/
+tutorial/spiders/__pycache__/*
+tutorial/db.ini

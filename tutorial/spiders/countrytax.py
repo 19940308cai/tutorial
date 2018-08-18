@@ -6,28 +6,17 @@ from tutorial.items import CountryTaxItem
 
 class CountryTax(scrapy.Spider):
     name="countrytax"
+    area="北京"
+    maxPage="3215"
+    taxCode="110000"
     baseUrl="http://hd.chinatax.gov.cn/fagui/action/InitCredit.do"
 
 
-
-    def __init__(self,area=None,maxPage=None,taxCode=None,*args,**kwargs):
-        super(CountryTax,self).__init__(*args,**kwargs)
-        self.area=area
-        self.maxPage=maxPage
-        self.taxCode=taxCode
-
     def start_requests(self):
-       if os.path.exists("./item.txt") :
-            with open("./item.txt","r") as f:
-                offset=f.read()
-       else:
-            offset=1
-
-       for index in range(int(offset),int(self.maxPage)):
+       for index in range(1,int(self.maxPage)):
             with open("./item.txt","w") as f:
                  f.write(str(index))
             yield scrapy.FormRequest(meta={"index":str(index)},url=self.baseUrl+"?time="+str(datetime.datetime.now().timestamp()),callback=self.run)
-       os.remove("./item.txt")
 
     def run(self,response):
         body = {}

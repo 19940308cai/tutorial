@@ -14,4 +14,13 @@ class CountryTaxItem(scrapy.Item):
     date = scrapy.Field()
     area = scrapy.Field()
 
+#ip实体
+class IptablesTtem(scrapy.Item):
+    ip=scrapy.Field()
+    schema=scrapy.Field()
+    port=scrapy.Field()
+    address=scrapy.Field()
+    type=scrapy.Field()
+
+
 
