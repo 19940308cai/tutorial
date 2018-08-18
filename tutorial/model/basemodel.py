@@ -37,6 +37,7 @@ class BaseModel:
             keyTmp,
             valueTmp
         )
+
         try:
             self.handle.execute(sql)
             self.db.commit()
@@ -68,9 +69,9 @@ class BaseModel:
             )
         if limit:
             if len(limit) > 1:
-                sql+=" LIMIT "+limit[0]+","+limit[1]
+                sql+=" LIMIT "+str(limit[0])+","+str(limit[1])
             else:
-                sql += " LIMIT " + limit[0]
+                sql += " LIMIT " +str(limit[0])
         self.handle.execute(sql)
         return self.handle.fetchall()
 

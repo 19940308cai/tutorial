@@ -15,18 +15,15 @@ class productPipeline(object):
         if isinstance(item,CountryTaxItem):
             m_countryTax = countryTax()
             result = m_countryTax.selectOneDataByCondition([
-                ['articleField01','=',item['articleField01']],
-                ['articleField02', '=', item['articleField02']],
-                ['articleField03', '=', item['articleField03']],
-                ['articleField06', '=', item['articleField06']],
-                ['cPage', '=', item['cPage']],
-                ['randCode', '=', item['randCode']],
-                ['flag', '=', item['flag']],
-                ['scount', '=', item['scount']],
-                ['taxCode', '=', item['taxCode']],
+                ['taxnumber', '=', item['taxnumber']],
+                ['taxname', '=', item['taxname']],
+                ['date', '=', item['date']],
+                ['area', '=', item['area']],
             ])
-            if not result:
+            if result is None:
                 m_countryTax.insert(item)
+
+
 
 
         if isinstance(item,IptablesTtem):
@@ -37,6 +34,6 @@ class productPipeline(object):
                 ['type', '=', item['type']],
                 ['schema', '=', item['schema']],
             ])
-            if not result:
+            if result is None:
                 m_iptable.insert(item)
 
