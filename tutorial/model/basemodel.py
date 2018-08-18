@@ -1,4 +1,4 @@
-import pymysql
+import pymysql,os
 from configparser import ConfigParser
 
 class BaseModel:
@@ -8,7 +8,7 @@ class BaseModel:
 
     def __init__(self,table):
         configer = ConfigParser()
-        configer.read("db.ini")
+        configer.read(os.getcwd()+"/db.ini")
         self.tableName = table
         self.database  = configer.get("db", "database")
         self.db = pymysql.Connect(

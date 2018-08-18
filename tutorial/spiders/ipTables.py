@@ -1,4 +1,4 @@
-import scrapy
+import scrapy,time
 from tutorial.items import IptablesTtem
 
 
@@ -7,11 +7,11 @@ class Iptables(scrapy.Spider):
     name="iptables"
     baseUrl="http://www.xicidaili.com/nn/1"
 
-
     def start_requests(self):
-        return [
-            scrapy.Request(url=self.baseUrl, callback=self.run)
-        ]
+        while True:
+            yield scrapy.Request(url=self.baseUrl+"?z="+str(time.time()), callback=self.run)
+            time.sleep(300)
+
 
     def run(self,response):
         trs = response.xpath("//table[@id='ip_list']/tr")
