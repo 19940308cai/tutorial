@@ -23,7 +23,12 @@ class CountryTax(scrapy.Spider):
         for index in range(offset,int(self.maxPage)):
             with open("./item.txt","w") as f:
                  f.write(str(index))
-            yield scrapy.FormRequest(meta={"proxy":self.proxy,"index":str(index)},url=self.baseUrl+"?time="+str(datetime.datetime.now().timestamp()),callback=self.run)
+            yield scrapy.FormRequest(
+                # "proxy":self.proxy,
+                meta={"proxy":self.proxy,"index":str(index)},
+                url=self.baseUrl+"?time="+str(datetime.datetime.now().timestamp()),
+                callback=self.run
+            )
 
     def run(self,response):
         if str(response.status) == "200":
@@ -38,7 +43,14 @@ class CountryTax(scrapy.Spider):
             body['scount'] ="0"
             body['taxCode']=self.taxCode
             return [
-                scrapy.FormRequest(meta={"proxy":self.proxy,"index":response.meta['index']},url=self.baseUrl,formdata=body,method="POST",callback=self.process)
+                scrapy.FormRequest(
+                    # "proxy":self.proxy,
+                    meta={"proxy":self.proxy,"index":response.meta['index']},
+                    url=self.baseUrl,
+                    formdata=body,
+                    method="POST",
+                    callback=self.process
+                )
             ]
         else:
             print("方法名:run , 状态码:"+str(response.status))
@@ -56,6 +68,7 @@ class CountryTax(scrapy.Spider):
                 countrytax['taxname']   = str(tds[1].extract())
                 countrytax['date']      = str(tds[2].extract())
                 countrytax['area']      = self.area
+                print(countrytax)
                 yield countrytax
         else:
             print("方法名:process , 状态码:" + str(response.status))
