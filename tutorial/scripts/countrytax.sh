@@ -2,5 +2,5 @@
 
 . absolutepath.sh
 
-#`scrapy crawl countrytax --logfile=log/countrytax.log`
-`scrapy crawl countrytax`
+`scrapy crawl countrytax --logfile=log/countrytax.log`
+#`scrapy crawl countrytax`
