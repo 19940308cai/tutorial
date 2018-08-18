@@ -1,4 +1,4 @@
-import scrapy,os
+import scrapy,os,time
 import datetime
 from tutorial.items import CountryTaxItem
 
@@ -24,11 +24,11 @@ class CountryTax(scrapy.Spider):
             with open("./item.txt","w") as f:
                  f.write(str(index))
             yield scrapy.FormRequest(
-                # "proxy":self.proxy,
-                meta={"proxy":self.proxy,"index":str(index)},
-                url=self.baseUrl+"?time="+str(datetime.datetime.now().timestamp()),
-                callback=self.run
-            )
+                    # "proxy":self.proxy,
+                    meta={"proxy":self.proxy,"index":str(index)},
+                    url=self.baseUrl+"?time="+str(datetime.datetime.now().timestamp()),
+                    callback=self.run
+                )
 
     def run(self,response):
         if str(response.status) == "200":
@@ -42,6 +42,7 @@ class CountryTax(scrapy.Spider):
             body['flag']   = "1"
             body['scount'] ="0"
             body['taxCode']=self.taxCode
+            print(body)
             return [
                 scrapy.FormRequest(
                     # "proxy":self.proxy,
