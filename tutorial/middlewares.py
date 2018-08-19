@@ -7,6 +7,7 @@
 
 from scrapy import signals
 from tutorial.model.iptable import iptable
+from tutorial.spiders.countrytax import CountryTax
 import random
 
 
@@ -71,6 +72,9 @@ class TutorialDownloaderMiddleware(object):
         return s
 
     def process_request(self, request, spider):
+        #国家税务总局网站，暂时关闭走代理
+        if isinstance(spider,CountryTax):
+            return None
 
         userAgentList = [ \
             "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1" \

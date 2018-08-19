@@ -7,7 +7,7 @@ class Iptables(scrapy.Spider):
     name="iptables"
     baseUrl="http://www.xicidaili.com/wt/"
     def start_requests(self):
-        for i in range(1,1865):
+        for i in range(1,1867):
             yield scrapy.Request(url=self.baseUrl+str(i),callback=self.run)
 
 
