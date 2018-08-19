@@ -8,7 +8,7 @@ class BaseModel:
 
     def __init__(self,table):
         configer = ConfigParser()
-        configer.read(os.getcwd()+"/db.ini")
+        configer.read("/Users/caijiang/tutorial/tutorial/db.ini")
         self.tableName = table
         self.database  = configer.get("db", "database")
         self.db = pymysql.Connect(
