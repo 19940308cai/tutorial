@@ -7,7 +7,7 @@ from tutorial.items import CountryTaxItem
 class CountryTax(scrapy.Spider):
     name="countrytax"
     area="北京"
-    maxPage="3215"
+    maxPage=3215
     taxCode="110000"
     baseUrl="http://hd.chinatax.gov.cn/fagui/action/InitCredit.do"
 
@@ -23,7 +23,7 @@ class CountryTax(scrapy.Spider):
 
     #拿cookie去访问首页
     def parse(self, response):
-        for index in range(1,self.maxPage):
+        for index in range(220,self.maxPage):
             yield scrapy.Request(
                     url=self.baseUrl+"?z="+str(time.time()),
                     headers=self.headers,
