@@ -22,5 +22,8 @@ class IptablesTtem(scrapy.Item):
     address=scrapy.Field()
     type=scrapy.Field()
 
-
+#职位容器
+class JobCategory(scrapy.Item):
+    jobtitle = scrapy.Field()
+    jobhref  = scrapy.Field()
 

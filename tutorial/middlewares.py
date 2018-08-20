@@ -6,10 +6,11 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-from tutorial.spiders.countrytax import CountryTax
 from tutorial.model.iptable import iptable
+from tutorial.spiders.ipTables import Iptables
+from tutorial.spiders.baixing import Baixing
 import random
-# from tutorial.settings import PROXIES
+
 
 class RandomUserAgent(object):
     """Randomly rotate user agents based on a list of predefined ones"""
@@ -35,16 +36,17 @@ class ProxyMiddleware(object):
             if request.meta['proxy']:
                 pass
         except:
-            # proxyMap = random.choice(PROXIES)
-            # proxy="http://"+proxyMap["ip_port"]
-            proxy=None
-            while proxy is None:
-                proxy=self.mip.getProxy()
-            spider.logger.info('**************ProxyMiddleware no pass************ %s' % proxy)
-            request.meta['proxy'] = proxy
-            # proxy = random.choice(PROXIES)
-            # print("**************ProxyMiddleware no pass************" + proxy['ip_port'])
-            # request.meta['proxy'] = "http://%s" % proxy['ip_port']
+            if not isinstance(spider,Iptables) and not isinstance(spider,Baixing):
+                # proxyMap = random.choice(PROXIES)
+                # proxy="http://"+proxyMap["ip_port"]
+                proxy=None
+                while proxy is None:
+                    proxy=self.mip.getProxy()
+                spider.logger.info('**************ProxyMiddleware no pass************ %s' % proxy)
+                request.meta['proxy'] = proxy
+                # proxy = random.choice(PROXIES)
+                # print("**************ProxyMiddleware no pass************" + proxy['ip_port'])
+                # request.meta['proxy'] = "http://%s" % proxy['ip_port']
 
 
 

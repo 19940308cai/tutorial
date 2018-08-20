@@ -37,7 +37,6 @@ class BaseModel:
             keyTmp,
             valueTmp
         )
-
         try:
             self.handle.execute(sql)
             self.db.commit()

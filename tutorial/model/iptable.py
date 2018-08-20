@@ -23,7 +23,6 @@ class iptable(BaseModel):
             if result is False:
                 self.getProxy()
             else:
-                # print("即将要返回的ip:", result)
                 return result
 
     def _jup(self,ip,schema,port):

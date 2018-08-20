@@ -4,8 +4,12 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 from tutorial.items import CountryTaxItem
 from tutorial.items import IptablesTtem
+from tutorial.items import JobCategory
+
 from tutorial.model.countryTax import countryTax
 from tutorial.model.iptable import iptable
+from tutorial.model.jobCategory import jobCategory
+
 
 class productPipeline(object):
 
@@ -24,8 +28,6 @@ class productPipeline(object):
                 m_countryTax.insert(item)
 
 
-
-
         if isinstance(item,IptablesTtem):
             m_iptable = iptable()
             result = m_iptable.selectOneDataByCondition([
@@ -37,3 +39,12 @@ class productPipeline(object):
             if result is None:
                 m_iptable.insert(item)
 
+
+        if isinstance(item,JobCategory):
+            m_jobCategory = jobCategory()
+            result = m_jobCategory.selectOneDataByCondition([
+                ['jobtitle','=',item['jobtitle']],
+                ['jobhref', '=', item['jobhref']],
+            ])
+            if result is None:
+                m_jobCategory.insert(item)
