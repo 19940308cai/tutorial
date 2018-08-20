@@ -40,7 +40,7 @@ class ProxyMiddleware(object):
             proxy=None
             while proxy is None:
                 proxy=self.mip.getProxy()
-            print("**************ProxyMiddleware no pass************", proxy)
+            spider.logger.info('**************ProxyMiddleware no pass************ %s' % proxy)
             request.meta['proxy'] = proxy
             # proxy = random.choice(PROXIES)
             # print("**************ProxyMiddleware no pass************" + proxy['ip_port'])

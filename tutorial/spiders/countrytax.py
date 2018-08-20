@@ -39,7 +39,7 @@ class CountryTax(scrapy.Spider):
             except Exception as e:
                 with open("run_error.html","wb") as f:
                     f.write(response.body)
-                print("方法名:run , 状态码:" + str(response.status) + e.__str__())
+                # print("方法名:run , 状态码:" + str(response.status) + e.__str__())
                 return
             body = {
                 "articleField01" : "",
@@ -60,7 +60,7 @@ class CountryTax(scrapy.Spider):
                 method="POST",
                 callback=self.process)]
         else:
-            print("方法名:run , 状态码:"+str(response.status))
+            # print("方法名:run , 状态码:"+str(response.status))
             return
 
     def process(self,response):
