@@ -19,9 +19,11 @@ class iptable(BaseModel):
         if data is None:
             return False
         result = self._jup(data[1],data[2],data[3])
+        print("hahah:",result)
         if result is False:
             self.getProxy()
         else:
+            print("hahah1:", result)
             return result
 
     def _jup(self,ip,schema,port):
@@ -61,6 +63,6 @@ class iptable(BaseModel):
 
 if __name__ == '__main__':
     m = iptable()
-    data = m.getIp()
+    data = m.getProxy()
     print(data)
     pass

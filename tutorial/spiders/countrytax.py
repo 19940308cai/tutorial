@@ -15,16 +15,16 @@ class CountryTax(scrapy.Spider):
     def start_requests(self):
         yield scrapy.FormRequest(
                 url=self.baseUrl,
-                meta={'cookiejar': 1},
                 callback=self.parse
             )
 
     #拿cookie去访问首页
     def parse(self, response):
-        for index in range(0,3):
+        print(response.headers)
+        for index in range(0,1):
             yield scrapy.Request(
                     url=self.baseUrl+"?timestap="+str(time.time()),
-                    meta={'cookiejar': response.meta['cookiejar'],"cPage":str(index)},
+                    meta={"cPage":str(index),"proxy":response.meta['proxy']},
                     callback=self.run
                 )
 
@@ -52,7 +52,7 @@ class CountryTax(scrapy.Spider):
             return [ scrapy.FormRequest(
                 url=self.baseUrl,
                 formdata=body,
-                meta={'cookiejar': response.meta['cookiejar']},
+                meta={"proxy":response.meta['proxy']},
                 method="POST",
                 callback=self.process)]
         else:

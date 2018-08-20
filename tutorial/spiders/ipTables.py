@@ -7,12 +7,11 @@ class Iptables(scrapy.Spider):
     name="iptables"
     baseUrl="http://www.xicidaili.com/wt/"
     def start_requests(self):
-        for i in range(1,1867):
+        for i in range(1,10):
             yield scrapy.Request(url=self.baseUrl+str(i),callback=self.run)
 
 
     def run(self,response):
-        print(response)
         if response.status == 200:
             trs = response.xpath("//table[@id='ip_list']/tr")
             del trs[0]
