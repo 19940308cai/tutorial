@@ -11,10 +11,13 @@ class CountryTax(scrapy.Spider):
     taxCode="110000"
     baseUrl="http://hd.chinatax.gov.cn/fagui/action/InitCredit.do"
 
+    headers = {'Host': 'hd.chinatax.gov.cn', 'Proxy-Connection': 'keep-alive',}
+
     #种cookie
     def start_requests(self):
         yield scrapy.FormRequest(
                 url=self.baseUrl,
+                headers=self.headers,
                 callback=self.parse
             )
 
@@ -24,7 +27,8 @@ class CountryTax(scrapy.Spider):
         for index in range(0,1):
             yield scrapy.Request(
                     url=self.baseUrl+"?timestap="+str(time.time()),
-                    meta={"cPage":str(index),"proxy":response.meta['proxy']},
+                    headers=self.headers,
+                    meta={"cPage":str(index)},
                     callback=self.run
                 )
 
@@ -52,7 +56,7 @@ class CountryTax(scrapy.Spider):
             return [ scrapy.FormRequest(
                 url=self.baseUrl,
                 formdata=body,
-                meta={"proxy":response.meta['proxy']},
+                headers=self.headers,
                 method="POST",
                 callback=self.process)]
         else:
@@ -72,7 +76,6 @@ class CountryTax(scrapy.Spider):
                     countrytax['taxname'] = str(tds[1].extract())
                     countrytax['date'] = str(tds[2].extract())
                     countrytax['area'] = self.area
-                    print(countrytax)
                     yield countrytax
             except Exception as e:
                 print("方法名:process , 状态码:" + str(response.status)+e.__str__())

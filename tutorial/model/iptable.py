@@ -6,6 +6,7 @@ class iptable(BaseModel):
     def __init__(self):
         super(iptable, self).__init__("iptable")
 
+
     def getProxy(self):
         sql = """ 
                      SELECT * FROM `%s`.`%s` ORDER BY RAND() LIMIT 1 
@@ -19,11 +20,12 @@ class iptable(BaseModel):
         if data is None:
             return False
         result = self._jup(data[1],data[2],data[3])
-        print("hahah:",result)
         if result is False:
             self.getProxy()
         else:
-            print("hahah1:", result)
+            print("即将要返回的ip:", result)
+            if result is None:
+                print(result)
             return result
 
     def _jup(self,ip,schema,port):
