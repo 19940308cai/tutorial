@@ -1,8 +1,6 @@
 import redis
-from configparser import ConfigParser
-configer = ConfigParser()
-configer.read("./db.ini")
-redisHandle=redis.Redis(host=configer.get("redis","host"), port=configer.get("redis","port"), decode_responses=True)
+
+redisHandle=redis.Redis(host="127.0.0.1", port=6379, decode_responses=True)
 
 class RedisClient:
 

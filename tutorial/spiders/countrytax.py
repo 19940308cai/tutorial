@@ -11,7 +11,7 @@ class CountryTax(scrapy.Spider):
     taxCode="110000"
     baseUrl="http://hd.chinatax.gov.cn/fagui/action/InitCredit.do"
 
-    headers = {'Host': 'hd.chinatax.gov.cn', 'Proxy-Connection': 'keep-alive',}
+    headers = {'Host': 'hd.chinatax.gov.cn', 'Proxy-Connection': 'keep-alive'}
 
     #种cookie
     def start_requests(self):
@@ -23,12 +23,11 @@ class CountryTax(scrapy.Spider):
 
     #拿cookie去访问首页
     def parse(self, response):
-        print(response.headers)
-        for index in range(0,1):
+        for index in range(1,3):
             yield scrapy.Request(
                     url=self.baseUrl+"?timestap="+str(time.time()),
                     headers=self.headers,
-                    meta={"cPage":str(index)},
+                    meta={"cPage":str(index),"proxy":response.meta['proxy']},
                     callback=self.run
                 )
 
@@ -56,6 +55,7 @@ class CountryTax(scrapy.Spider):
             return [ scrapy.FormRequest(
                 url=self.baseUrl,
                 formdata=body,
+                meta={"proxy":response.meta['proxy']},
                 headers=self.headers,
                 method="POST",
                 callback=self.process)]

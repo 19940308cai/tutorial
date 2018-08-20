@@ -8,6 +8,8 @@
 #     https://doc.scrapy.org/en/latest/topics/settings.html
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
+from tutorial.model.iptable import iptable
+import threading
 
 BOT_NAME = 'tutorial'
 
@@ -29,7 +31,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 10
+DOWNLOAD_DELAY = 30
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 5
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -118,8 +120,8 @@ USER_AGENTS=[
 	"Opera/9.80 (Macintosh; Intel Mac OS X 10.6.8; U; fr) Presto/2.9.168 Version/11.52",
 ]
 
-PROXIES = [
-	{'ip_port': '118.190.95.43:9001', 'user_pass': ''},
-	{'ip_port': '114.99.253.70:8118', 'user_pass': ''},
-]
+# PROXIES = [
+# 	{'ip_port': '27.46.75.5:9000', 'user_pass': ''},
+# ]
+
 

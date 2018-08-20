@@ -8,8 +8,9 @@ class iptable(BaseModel):
 
 
     def getProxy(self):
+
         sql = """ 
-                     SELECT * FROM `%s`.`%s` ORDER BY RAND() LIMIT 1 
+                     SELECT * FROM `%s`.`%s` ORDER BY RAND() LIMIT 1
                      """ \
                      % (
             self.database,
@@ -17,21 +18,19 @@ class iptable(BaseModel):
         )
         self.handle.execute(sql)
         data   = self.handle.fetchone()
-        if data is None:
-            return False
-        result = self._jup(data[1],data[2],data[3])
-        if result is False:
-            self.getProxy()
-        else:
-            print("即将要返回的ip:", result)
-            if result is None:
-                print(result)
-            return result
+        if data is not None:
+            result = self._jup(data[1],data[2],data[3])
+            if result is False:
+                self.getProxy()
+            else:
+                print("即将要返回的ip:", result)
+                return result
 
     def _jup(self,ip,schema,port):
         result=False
         try:
             proxy=schema + "://" + ip + ":" + port
+            # proxy =ip + ":" + port
             proxy_dict = {"http":proxy}
             response = requests.get("http://47.92.119.35/service/window/index", proxies=proxy_dict,timeout=15)
             if response.status_code == 200:
@@ -64,7 +63,13 @@ class iptable(BaseModel):
 
 
 if __name__ == '__main__':
+    data = []
     m = iptable()
-    data = m.getProxy()
+    proxy = None
+    while proxy is None:
+        proxy = m.getProxy()
+    print("**************ProxyMiddleware no pass************", proxy)
+    data.append(proxy)
+
     print(data)
     pass

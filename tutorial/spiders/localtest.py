@@ -4,14 +4,15 @@ import scrapy,time
 
 class localtest(scrapy.Spider):
     name="localtest"
-    baseUrl="http://47.92.119.35/service/window/index"
+    baseUrl="http://47.92.119.35/service/window/demo"
+    headers = {'Host': 'hd.chinatax.gov.cn', 'Proxy-Connection': 'keep-alive'}
 
     def start_requests(self):
-
         for index in range(0,20):
             yield scrapy.Request(
                              url=self.baseUrl + "?z="+str(time.time())+"&flag="+str(index),
                              meta={"index": str(index)},
+                headers=self.headers,
                              callback=self.run)
 
 
@@ -20,6 +21,7 @@ class localtest(scrapy.Spider):
         yield scrapy.Request(
                              url=self.baseUrl + "?t="+str(time.time())+"&father="+str(response.meta['index']),
                              meta={"index":str(response.meta['index'])+"_1","proxy":response.meta['proxy']},
+            headers=self.headers,
                              callback=self.demo)
 
     def demo(self,response):

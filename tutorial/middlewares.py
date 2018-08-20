@@ -8,8 +8,8 @@
 from scrapy import signals
 from tutorial.spiders.countrytax import CountryTax
 from tutorial.model.iptable import iptable
-import random,threading
-from tutorial.settings import PROXIES
+import random
+# from tutorial.settings import PROXIES
 
 class RandomUserAgent(object):
     """Randomly rotate user agents based on a list of predefined ones"""
@@ -29,21 +29,19 @@ class ProxyMiddleware(object):
 
     def __init__(self):
         self.mip = iptable()
-        self.mutex_ = threading.Lock()
 
     def process_request(self, request, spider):
         try:
             if request.meta['proxy']:
                 pass
         except:
-            # print(self.mip)
-            self.mutex_.acquire()
-            proxy = self.mip.getProxy()
-            if proxy is None:
-                print(proxy)
-            print("**************ProxyMiddleware no pass************",proxy)
+            # proxyMap = random.choice(PROXIES)
+            # proxy="http://"+proxyMap["ip_port"]
+            proxy=None
+            while proxy is None:
+                proxy=self.mip.getProxy()
+            print("**************ProxyMiddleware no pass************", proxy)
             request.meta['proxy'] = proxy
-            self.mutex_.release()
             # proxy = random.choice(PROXIES)
             # print("**************ProxyMiddleware no pass************" + proxy['ip_port'])
             # request.meta['proxy'] = "http://%s" % proxy['ip_port']
