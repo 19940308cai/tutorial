@@ -23,9 +23,9 @@ class CountryTax(scrapy.Spider):
 
     #拿cookie去访问首页
     def parse(self, response):
-        for index in range(1,3):
+        for index in range(1,self.maxPage):
             yield scrapy.Request(
-                    url=self.baseUrl+"?timestap="+str(time.time()),
+                    url=self.baseUrl+"?z="+str(time.time()),
                     headers=self.headers,
                     meta={"cPage":str(index),"proxy":response.meta['proxy']},
                     callback=self.run
@@ -53,7 +53,7 @@ class CountryTax(scrapy.Spider):
                 "taxCode":self.taxCode
             }
             return [ scrapy.FormRequest(
-                url=self.baseUrl,
+                url=self.baseUrl+"?d="+str(time.time()),
                 formdata=body,
                 meta={"proxy":response.meta['proxy']},
                 headers=self.headers,
